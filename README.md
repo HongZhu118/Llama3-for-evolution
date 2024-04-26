@@ -11,12 +11,15 @@ ollama run llama3
 [官方文档](https://github.com/ollama/ollama)
 
 ## 3. 安装依赖包
-		pip3 install -r requirements.txt
-
+```
+pip3 install -r requirements.txt
+```
 ## 4. 使用ollama提供的本地接口调用llama3 
-		curl http://localhost:11434/api/chat -d '{
-  		"model": "llama3",
- 		 "messages": [
-   		 { "role": "user", "content": "why is the sky blue?" }
- 		 ]
-		}'
+```
+curl http://localhost:11434/api/chat -d '{
+"model": "llama3",
+ "messages": [
+ { "role": "user", "content": "why is the sky blue?" }
+ ]
+}'
+```
