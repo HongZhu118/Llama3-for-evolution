@@ -5,7 +5,9 @@
 
 ## 2. 下载模型
 llama3-8B下载示例：<br/>
+```
 		ollama run llama3
+```
 <br>[官方文档](https://github.com/ollama/ollama)
 
 ## 3. 安装依赖包
