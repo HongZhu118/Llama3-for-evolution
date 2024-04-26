@@ -4,9 +4,9 @@
 [下载地址](https://ollama.com/)
 
 ## 2. 下载模型
-llama3-8B下载示例：
+llama3-8B下载示例：<br/>
 		ollama run llama3
-[官方文档](https://github.com/ollama/ollama)
+<br>[官方文档](https://github.com/ollama/ollama)
 
 ## 3. 安装依赖包
 		pip3 install -r requirements.txt
