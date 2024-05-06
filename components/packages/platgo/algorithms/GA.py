@@ -7,11 +7,11 @@ from components.packages.platgo.utils.selections.tournament_selection import (
 )  # noqa
 from components.packages.platgo.operators.OperatorGA import OperatorGA
 
-import torch
+# import torch
 import os
 import numpy as np
 import re
-import transformers
+# import transformers
 
 from transformers import (
     AutoConfig, AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig

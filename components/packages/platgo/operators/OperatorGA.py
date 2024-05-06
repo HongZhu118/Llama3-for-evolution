@@ -2,7 +2,7 @@ import numpy as np
 import math
 from ..Population import Population
 import re
-import ollama
+# import ollama
 """
  OperatorGA - Crossover and mutation operators of genetic algorithm.
 
@@ -134,59 +134,6 @@ def OperatorGA(pop, problem, *args) -> Population:
             Offspring[i + N, k[i] + 1 :] = np.setdiff1d(  # noqa
                 pop1[i, :], pop2[i, : k[i] + 1], True
             )  # noqa
-
-
-        """
-         Genetic operators for permutation based encoding
-         Order crossover
-        """
-        # Offspring = np.vstack((pop1, pop2))
-        # k = np.random.randint(0, high=D, size=2 * N)
-        # for i in range(N):  # noqa
-        #     Offspring[i, k[i] + 1 :] = np.setdiff1d(  # noqa
-        #         pop2[i, :], pop1[i, : k[i] + 1], True
-        #     )  # noqa
-        #     Offspring[i + N, k[i] + 1 :] = np.setdiff1d(  # noqa
-        #         pop1[i, :], pop2[i, : k[i] + 1], True
-        #     )  # noqa
-        # index = np.random.randint(0, 2*N)
-        # Offspring = [pop[index]]
-        # Offspring = []
-        # while len(Offspring) < len(pop):
-        #     # k = np.random.randint(0, 2*N)
-        #     p1 = np.random.randint(0, N - 1)
-        #     p2 = np.random.randint(N, 2 * N)
-        #     ind = np.random.randint(0, D - 1)
-        #     my_string1 = "[" + ",".join(str(element) for element in pop[p1]) + "]"
-        #     my_string2 = "[" + ",".join(str(element) for element in pop[p2]) + "]"
-        #     prompt_content_crossover = "I have two lists S1:" + my_string1 + " and S2:" + my_string2 + \
-        #                                "Convert string S1 to list of integer numbers S1, string S2 to list of integer numbers S2." \
-        #                                "Save the first " + str(ind + 1) + " elements in S1 as list L1,The length of listing L1 should be" + str(ind + 1) + "." \
-        #                                 "Remove the same element in S2 as in L1 and save the remaining elements in S2 as the list L2," \
-        #                                 "The length of listing L2 should be" + str(D - ind - 1) + \
-        #                                "Merge L1 and S2 into a new list Offspring." \
-        #                                "Please return the final value of list L1,L2,Offspring directly." \
-        #                                "Do not give additional explanations."
-
-            #     prompt_content_crossover2 = "I have a string S1:"+str(pop)+",  identify string S1 and convert S1 to np.array array pop"\
-            # "Please randomly select two different elements pop1 and pop2"\
-            # "Save the first "+ str(k+1) + " elements in pop1 as list L1,The length of listing L1 should be"+ str(k+1)+"." \
-            # "Remove the same element in pop2 as in L1 and save the remaining elements in pop2 as the list L2,The length of listing L2 should be"+ str(len(pop[0])-k-1)+\
-            # "Merge L1 and pop2 into a new list Offspring."\
-            # "Please return the final value of list L1,L2,Offspring directly." \
-            # "Do not give additional explanations."
-
-        #     Offspring_one = get_response(prompt_content_crossover)
-        #     list_strings = re.findall(r'\[([^\]]*)\]', Offspring_one)
-        #     # 将字符串转换为列表
-        #     One_offspring_list = []
-        #     for list_string in list_strings:
-        #         One_offspring_list.append([int(x) for x in list_string.split(',')])
-        #     offspring_array = np.array(One_offspring_list[2])
-        #     set_offspring_array = set(offspring_array)
-        #     if len(offspring_array) == len(pop) and len(set_offspring_array) == len(offspring_array):
-        #         Offspring.append(offspring_array)
-        # Offspring = np.array(Offspring)
 
         """
          Slight mutation
@@ -398,88 +345,87 @@ def OperatorGA(pop, problem, *args) -> Population:
          Genetic operators for real encoding
          Simulated binary crossover
         """
-        offspring = []
-        while len(offspring) < pop.shape[0]:
-            i = 0
-            response = ollama.chat(model='llama3', messages=[
-                {
-                    'role': 'user',
-                    'content': f"""
-                                I have two existing 1 by {D} dimensional numpy array P={pop1[i]} and O={pop2[i]}.\
-                                Please return two numpy array L and K with the same size of P that is totally different from O and P but can be motivated from them.\
-                                Please use the format:
-                                L=<L> 
-                                K=<K>
-                                Do not give additional explanations.If you return code, give the results of your code run, and output a specific list
-                                """
-                },
-            ])
-            r = response['message']['content']
-            float_pattern = r'\b\d+\.\d+\b'
-            text = re.findall(float_pattern, r)[-12:]
-            float_values = [float(match) for match in text]
-            if len(float_values) == pop1.shape[1]*2:
-                i += 1
-                off1 = float_values[:6]
-                off2 = float_values[6:12]
-                offspring.append(off1)
-                offspring.append(off2)
-        Offspring = np.array(offspring)
+        # offspring = []
+        # while len(offspring) < pop.shape[0]:
+        #     i = 0
+        #     response = ollama.chat(model='llama3', messages=[
+        #         {
+        #             'role': 'user',
+        #             'content': f"""
+        #                         I have two existing 1 by {D} dimensional numpy array P={pop1[i]} and O={pop2[i]}.\
+        #                         Please return two numpy array L and K with the same size of P that is totally different from O and P but can be motivated from them.\
+        #                         Please use the format:
+        #                         L=<L>
+        #                         K=<K>
+        #                         Do not give additional explanations.If you return code, give the results of your code run, and output a specific list
+        #                         """
+        #         },
+        #     ])
+        #     r = response['message']['content']
+        #     float_pattern = r'\b\d+\.\d+\b'
+        #     text = re.findall(float_pattern, r)[-12:]
+        #     float_values = [float(match) for match in text]
+        #     if len(float_values) == pop1.shape[1]*2:
+        #         i += 1
+        #         off1 = float_values[:6]
+        #         off2 = float_values[6:12]
+        #         offspring.append(off1)
+        #         offspring.append(off2)
+        # Offspring = np.array(offspring)
 
 
-
-        # beta = np.zeros((N, D))
-        # mu = np.random.random((N, D))
-        # beta[mu <= 0.5] = (2 * mu[mu <= 0.5]) ** (1 / (disC + 1))
-        # beta[mu > 0.5] = (2 - 2 * mu[mu > 0.5]) ** (-1 / (disC + 1))
-        # beta = beta * (-1) ** np.random.randint(0, 2, (N, D))
-        # beta[np.random.random((N, D)) < 0.5] = 1
-        # beta[np.tile(np.random.random((N, 1)) > proC, (1, D))] = 1
-        # Offspring = np.vstack(
-        #     (
-        #         (pop1 + pop2) / 2 + beta * (pop1 - pop2) / 2,
-        #         (pop1 + pop2) / 2 - beta * (pop1 - pop2) / 2,
-        #     )
-        # )  # noqa
-        # """
-        # Polynomial mutation
-        # """
-        # Lower = np.tile(problem.lb, (2 * N, 1))
-        # Upper = np.tile(problem.ub, (2 * N, 1))
-        # Site = np.random.random((2 * N, D)) < proM / D
-        # mu = np.random.random((2 * N, D))
-        # temp = np.logical_and(Site, mu <= 0.5)
-        # Offspring = np.minimum(np.maximum(Offspring, Lower), Upper)
-        # Offspring[temp] = Offspring[temp] + (Upper[temp] - Lower[temp]) * (
-        #     (
-        #         2 * mu[temp]
-        #         + (1 - 2 * mu[temp])
-        #         * (
-        #             1
-        #             - (Offspring[temp] - Lower[temp])
-        #             / (Upper[temp] - Lower[temp])  # noqa
-        #         )
-        #         ** (disM + 1)
-        #     )
-        #     ** (1 / (disM + 1))
-        #     - 1
-        # )  # noqa
-        # temp = np.logical_and(Site, mu > 0.5)  # noqa: E510
-        # Offspring[temp] = Offspring[temp] + (Upper[temp] - Lower[temp]) * (
-        #     1
-        #     - (
-        #         2 * (1 - mu[temp])
-        #         + 2
-        #         * (mu[temp] - 0.5)
-        #         * (
-        #             1
-        #             - (Upper[temp] - Offspring[temp])
-        #             / (Upper[temp] - Lower[temp])
-        #         )  # noqa
-        #         ** (disM + 1)
-        #     )
-        #     ** (1 / (disM + 1))
-        # )  # noqa
+        beta = np.zeros((N, D))
+        mu = np.random.random((N, D))
+        beta[mu <= 0.5] = (2 * mu[mu <= 0.5]) ** (1 / (disC + 1))
+        beta[mu > 0.5] = (2 - 2 * mu[mu > 0.5]) ** (-1 / (disC + 1))
+        beta = beta * (-1) ** np.random.randint(0, 2, (N, D))
+        beta[np.random.random((N, D)) < 0.5] = 1
+        beta[np.tile(np.random.random((N, 1)) > proC, (1, D))] = 1
+        Offspring = np.vstack(
+            (
+                (pop1 + pop2) / 2 + beta * (pop1 - pop2) / 2,
+                (pop1 + pop2) / 2 - beta * (pop1 - pop2) / 2,
+            )
+        )  # noqa
+        """
+        Polynomial mutation
+        """
+        Lower = np.tile(problem.lb, (2 * N, 1))
+        Upper = np.tile(problem.ub, (2 * N, 1))
+        Site = np.random.random((2 * N, D)) < proM / D
+        mu = np.random.random((2 * N, D))
+        temp = np.logical_and(Site, mu <= 0.5)
+        Offspring = np.minimum(np.maximum(Offspring, Lower), Upper)
+        Offspring[temp] = Offspring[temp] + (Upper[temp] - Lower[temp]) * (
+            (
+                2 * mu[temp]
+                + (1 - 2 * mu[temp])
+                * (
+                    1
+                    - (Offspring[temp] - Lower[temp])
+                    / (Upper[temp] - Lower[temp])  # noqa
+                )
+                ** (disM + 1)
+            )
+            ** (1 / (disM + 1))
+            - 1
+        )  # noqa
+        temp = np.logical_and(Site, mu > 0.5)  # noqa: E510
+        Offspring[temp] = Offspring[temp] + (Upper[temp] - Lower[temp]) * (
+            1
+            - (
+                2 * (1 - mu[temp])
+                + 2
+                * (mu[temp] - 0.5)
+                * (
+                    1
+                    - (Upper[temp] - Offspring[temp])
+                    / (Upper[temp] - Lower[temp])
+                )  # noqa
+                ** (disM + 1)
+            )
+            ** (1 / (disM + 1))
+        )  # noqa
 
     if calobj:  # noqa: E510
         Offspring = Population(decs=Offspring)
