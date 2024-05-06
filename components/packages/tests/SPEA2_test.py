@@ -28,8 +28,8 @@ from components.packages.platgo.algorithms import SPEA2
 if __name__ == "__main__":
     # 内置问题
     optimization_problem = {
-        "name": "SOP_F20",
-        "n_var": 6,
+        "name": "DTLZ1",
+        "n_var": 7,
         "algoResultType": 0,
         "lower": "0",
         "upper": "1",

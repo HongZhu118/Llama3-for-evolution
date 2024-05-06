@@ -13,7 +13,11 @@ from components.packages import platgo as pg  # noqa
 if __name__ == "__main__":
     # 内置问题
     optimization_problem = {
-        "name": "SOP_F20",
+        "name": "DTLZ1",
+        "n_var": 7,
+        "algoResultType": 0,
+        "lower": "0",
+        "upper": "1",
     }
     print(optimization_problem)
 
